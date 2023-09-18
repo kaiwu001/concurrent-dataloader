@@ -1060,7 +1060,7 @@ class _MultiProcessingDataLoaderIter(_BaseDataLoaderIter):
             if self._pin_memory:
                 self._pin_memory_thread_done_event = threading.Event()
                 # Queue is not type-annotated
-                self._data_queue = queue.Queue()  # type: ignore[var-annotated]
+                self._data_queue = queue.Queue(ctx=multiprocessing.get_context())  # type: ignore[var-annotated]
                 # self._data_queue = self.multiprocessing_context.Queue()  # type: ignore[var-annotated]
                 pin_memory_thread = threading.Thread(
                     target=_utils.pin_memory._pin_memory_loop,
