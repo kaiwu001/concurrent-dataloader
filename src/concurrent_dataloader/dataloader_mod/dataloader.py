@@ -29,7 +29,6 @@ from concurrent_dataloader.dataloader_mod.fetch import _IterableDatasetFetcher
 from concurrent_dataloader.dataloader_mod.fetch import _MapDatasetFetcher
 from concurrent_dataloader.dataloader_mod.fetch import _ThreadedMapDatasetFetcher
 from concurrent_dataloader.dataloader_mod.worker import get_worker_info
-from torch._six import string_classes
 from torch._utils import ExceptionWrapper
 from torch.multiprocessing import queue  # works slightly better than the standard queue
 from torch.utils.data import _utils
@@ -392,6 +391,7 @@ class DataLoader(Generic[T_co]):
 
     @multiprocessing_context.setter
     def multiprocessing_context(self, multiprocessing_context):
+        string_classes = str
         if multiprocessing_context is not None:
             if self.num_workers > 0:
                 if isinstance(multiprocessing_context, string_classes):
