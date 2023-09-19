@@ -1049,7 +1049,7 @@ class _MultiProcessingDataLoaderIter(_BaseDataLoaderIter):
         self._rcvd_idx = 0
         self._workers_status = [False for i in range(self._num_workers)]
         self._tasks_outstanding = 0
-        self._collate_fn = _collate_fn
+        self._collate_fn = loader.collate_fn
         # \\
 
     # // Modified: function that initializes process creation and starts data fetching
