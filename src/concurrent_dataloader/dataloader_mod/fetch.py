@@ -122,7 +122,10 @@ class _AsyncMapDatasetFetcher(_BaseDatasetFetcher):
             if isinstance(result_list[0],tuple):
                 new = [item[1] for item in result_list]
                 result_list = new
-            return self.collate_fn(result_list)[1]
+            result = self.collate_fn(result_list)
+            if isinstance(result,list) or isinstance(result,tuple):
+                return result[1]
+            return result
         return result_list
 
     @stopwatch(trace_name="(4)-asyncmapdataset-fetcher", trace_level=4)
